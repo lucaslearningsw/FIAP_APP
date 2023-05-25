@@ -10,38 +10,27 @@ namespace FIAP_APP.InfraData.SQL.Repositories.CollegeClass
 {
     public class CollegeClassRepository : ICollegeClassRepository
     {
-        public async Task<ResponseObject> CreateCollegeClass(Domain.Models.CollegeClass collegeClass)
-        {
-            try
-            {
-                //SELECT NO BANCO 
-
-            }
-            catch (Exception ex)
-            {
-                var errorResult = ResponseObject.CreateResponseError(500, ex.Message);
-                return errorResult;
-            }
-
-            return ResponseObject.CreateResponseOK();
-        }
-
-        public Task<ResponseObject> EditCollegeClass(Domain.Models.CollegeClass collegeClass)
+        public ResponseObject CreateCollegeClass(Domain.Models.CollegeClass collegeClass)
         {
             throw new NotImplementedException();
         }
 
-        public Task<List<Domain.Models.CollegeClass>> GetAllClass()
+        public ResponseObject EditCollegeClass(Domain.Models.CollegeClass collegeClass)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> HasClassWithSame(Domain.Models.CollegeClass collegeClass)
+        public List<Domain.Models.CollegeClass> GetAllClass()
         {
             throw new NotImplementedException();
         }
 
-        public Task<ResponseObject> InactivateCollegeClass(Domain.Models.CollegeClass collegeClass)
+        public bool HasClassWithSameName(Domain.Models.CollegeClass collegeClass)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ResponseObject InactivateCollegeClass(Domain.Models.CollegeClass collegeClass)
         {
            
             throw new NotImplementedException();

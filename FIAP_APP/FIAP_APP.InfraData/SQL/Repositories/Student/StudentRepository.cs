@@ -10,22 +10,26 @@ namespace FIAP_APP.InfraData.SQL.Repositories.Student
 {
     public class StudentRepository : IStudentRepository
     {
-        public Task<ResponseObject> CreateStudent(Domain.Models.Student student)
+        public StudentRepository()
+        {
+
+        }
+        public ResponseObject CreateStudent(Domain.Models.Student student)
         {
             throw new NotImplementedException();
         }
 
-        public Task<ResponseObject> EditStudent(Domain.Models.Student student)
+        public ResponseObject EditStudent(Domain.Models.Student student)
         {
             throw new NotImplementedException();
         }
 
-        public Task<List<Domain.Models.Student>> GetAllStudents()
+        public List<Domain.Models.Student> GetAllStudents()
         {
             throw new NotImplementedException();
         }
 
-        public Task<ResponseObject> InactivateStudent(Domain.Models.Student student)
+        public ResponseObject InactivateStudent(Domain.Models.Student student)
         {
             throw new NotImplementedException();
         }

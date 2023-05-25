@@ -9,10 +9,7 @@ namespace FIAP_APP.Domain.Models
     public class Student : Entity
     {
         public string Nome { get; set; }
-
         public string Usuario { get; set; }
-
         public string Senha { get; set; }
-
     }
 }

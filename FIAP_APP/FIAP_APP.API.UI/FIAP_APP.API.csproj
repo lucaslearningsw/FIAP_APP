@@ -8,12 +8,12 @@
 
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\FIAP_APP.Domain\FIAP_APP.Domain.csproj" />
     <ProjectReference Include="..\FIAP_APP.InfraData\FIAP_APP.InfraData.csproj" />
-    <ProjectReference Include="..\FIAP_APP_Infra\FIAP_APP.Infra.csproj" />
   </ItemGroup>
 
 </Project>

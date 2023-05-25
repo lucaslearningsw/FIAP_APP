@@ -9,12 +9,12 @@ namespace FIAP_APP.Domain.Repositories.Student
 {
     public interface IStudentRepository
     {
-        Task<List<Domain.Models.Student>> GetAllStudents();
+        List<Domain.Models.Student> GetAllStudents();
 
-        Task<ResponseObject> CreateStudent(Domain.Models.Student student);
+        ResponseObject CreateStudent(Domain.Models.Student student);
 
-        Task<ResponseObject> EditStudent(Domain.Models.Student student);
+        ResponseObject EditStudent(Domain.Models.Student student);
 
-        Task<ResponseObject> InactivateStudent(Domain.Models.Student student);
+        ResponseObject InactivateStudent(Domain.Models.Student student);
     }
 }

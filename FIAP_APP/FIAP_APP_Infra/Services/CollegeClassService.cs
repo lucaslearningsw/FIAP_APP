@@ -20,7 +20,7 @@ namespace FIAP_APP.Infra.Services
         public async Task<ResponseObject> CreateCollegeClass(CollegeClass collegeClass)
         {
 
-            if (await _classRepository.HasClassWithSame(collegeClass))
+            if (await _classRepository.HasClassWithSameName(collegeClass))
             {
                 return new ResponseObject()
                 {
@@ -29,8 +29,6 @@ namespace FIAP_APP.Infra.Services
                 };
 
             };
-
-
            return  await _classRepository.CreateCollegeClass(collegeClass);
 
             

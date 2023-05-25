@@ -9,14 +9,14 @@ namespace FIAP_APP.Domain.Repositories.CollegeClass
 {
     public interface ICollegeClassRepository
     {
-        Task<List<Domain.Models.CollegeClass>> GetAllClass();
+        List<Domain.Models.CollegeClass> GetAllClass();
 
-        Task<ResponseObject> InactivateCollegeClass(Domain.Models.CollegeClass collegeClass);
+        ResponseObject InactivateCollegeClass(Domain.Models.CollegeClass collegeClass);
 
-        Task<ResponseObject> CreateCollegeClass(Domain.Models.CollegeClass collegeClass);
+        ResponseObject CreateCollegeClass(Domain.Models.CollegeClass collegeClass);
 
-        Task<ResponseObject> EditCollegeClass(Domain.Models.CollegeClass collegeClass);
+        ResponseObject EditCollegeClass(Domain.Models.CollegeClass collegeClass);
 
-        Task<bool> HasClassWithSame(Domain.Models.CollegeClass collegeClass);
+        bool HasClassWithSameName(Domain.Models.CollegeClass collegeClass);
     }
 }

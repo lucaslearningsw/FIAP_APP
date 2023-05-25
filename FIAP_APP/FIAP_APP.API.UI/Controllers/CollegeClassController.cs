@@ -1,5 +1,5 @@
 ﻿using FIAP_APP.Domain.Models;
-using FIAP_APP.Domain.Services.Interfaces;
+using FIAP_APP.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FIAP_APP.API.Controllers
@@ -9,31 +9,90 @@ namespace FIAP_APP.API.Controllers
     [ApiController]
     public class CollegeClassController : Controller
     {
-        private readonly ICollegeClassService _collegeClassService;
+        private readonly CollegeClassService _collegeClassService;
 
-        public CollegeClassController(ICollegeClassService collegeClassService)
+        public CollegeClassController(CollegeClassService collegeClassService)
         {
             _collegeClassService = collegeClassService;
         }
 
-        [Route("CreateClass")]
-        [HttpPost]
-        public async Task<ResponseObject> CreateClass([FromBody] CollegeClass obj)
+
+        [Route("ListaTurma")]
+        [HttpGet]
+        public async Task<List<CollegeClass>> GetAllCollegeClass()
         {
-            var result = new ResponseObject();
             try
             {
-                result = await _collegeClassService.CreateCollegeClass(obj);
+                return  _collegeClassService.GetAllClass();
             }
             catch (Exception ex)
             {
 
-                throw ex;
+                throw;
+            }
+        }
+
+        [Route("CriarTurma")]
+        [HttpPost]
+        public ActionResult<ResponseObject> CreateClass([FromBody] CollegeClass obj)
+        {
+            if (obj == null)
+            {
+                return BadRequest(new ResponseObject { Status = "Error", ErrorMessage = "invali json" });
+            }
+            try
+            {
+                return Ok(_collegeClassService.CreateCollegeClass(obj));
+            }
+            catch (Exception ex)
+            {
+              return BadRequest(new ResponseObject { Status = "Error", ErrorMessage = ex.Message });
             }
 
-            return result;
+           
+        }
+
+        [Route("EditarTurma")]
+        [HttpPost]
+        public ActionResult<ResponseObject> EditTurma([FromBody] CollegeClass obj)
+        {
+
+            if (obj == null)
+            {
+                return BadRequest(new ResponseObject { Status = "Error", ErrorMessage = "invali json" });
+            }
+
+            try
+            {
+                return Ok(_collegeClassService.EditCollegeClass(obj));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ResponseObject { Status = "Error", ErrorMessage = ex.Message });
+
+            }
+        }
 
 
+        [Route("InativarTurma")]
+        [HttpPost]
+        public  ActionResult<ResponseObject> InactivateClass([FromBody] CollegeClass obj)
+        {
+
+            if (obj == null)
+            {
+                return BadRequest(new ResponseObject { Status = "Error", ErrorMessage = "invali json" });
+            }
+
+            try
+            {
+                return Ok(_collegeClassService.InactivateCollegeClass(obj));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ResponseObject { Status = "Error", ErrorMessage = ex.Message });
+
+            }
         }
     }
 }
