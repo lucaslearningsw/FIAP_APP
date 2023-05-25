@@ -16,5 +16,7 @@ namespace FIAP_APP.Domain.Repositories.CollegeClass
         Task<ResponseObject> CreateCollegeClass(Domain.Models.CollegeClass collegeClass);
 
         Task<ResponseObject> EditCollegeClass(Domain.Models.CollegeClass collegeClass);
+
+        Task<bool> HasClassWithSame(Domain.Models.CollegeClass collegeClass);
     }
 }
