@@ -83,7 +83,6 @@ namespace FIAP_APP.API.Controllers
             {
                 return BadRequest(new ResponseObject { Status = "Error", ErrorMessage = "invali json" });
             }
-
             try
             {
                 return Ok(_collegeClassService.InactivateCollegeClass(obj));

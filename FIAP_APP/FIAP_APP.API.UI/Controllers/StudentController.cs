@@ -17,42 +17,38 @@ namespace FIAP_APP.API.Controllers
 
         [Route("ListaEstudantes")]
         [HttpGet]
-        public async Task<List<Student>> GetAllStudents()
+        public  ActionResult<List<Student>> GetAllStudents()
         {
             try
             {
-                return await _studentService.GetAllStudents();
+                return _studentService.GetAllStudents();
             }
             catch (Exception ex)
             {
 
-                throw ex;
+                return BadRequest(new ResponseObject { Status = "Error", ErrorMessage = ex.Message });
             }
            
         }
 
         [Route("CriarEstudante")]
         [HttpPost]
-        public async Task<ResponseObject> CreateStudent([FromBody] Student obj)
+        public ActionResult<ResponseObject> CreateStudent([FromBody] Student obj)
         {
-            var result = new ResponseObject();
 
             if (obj == null)
             {
-                result.code = 405;
-                result.message = "Universal format JSON invalid, verify the fields.";
-                return result;
+                return BadRequest(new ResponseObject { Status = "Error", ErrorMessage = "invali json" });
             }
 
             try
             {
-                return await _studentService.CreateStudent(obj);
+                return Ok(_studentService.CreateStudent(obj));
             }
             catch (Exception ex)
             {
 
-                result = ResponseObject.CreateResponseError(500, ex.Message);
-                return result;
+                return BadRequest(new ResponseObject { Status = "Error", ErrorMessage = ex.Message});
             }
 
           
@@ -60,51 +56,42 @@ namespace FIAP_APP.API.Controllers
 
         [Route("EditarEstudante")]
         [HttpPost]
-        public async Task<ResponseObject> EditStudent([FromBody] Student obj)
+        public  ActionResult<ResponseObject> EditStudent([FromBody] Student obj)
         {
-            var result = new ResponseObject();
 
             if (obj == null)
             {
-                result.code = 405;
-                result.message = "Universal format JSON invalid, verify the fields.";
-                return result;
+                return BadRequest(new ResponseObject { Status = "Error", ErrorMessage = "invali json" });
             }
 
             try
             {
-                return await _studentService.EditStudent(obj);
+                return Ok(_studentService.EditStudent(obj));
             }
             catch (Exception ex)
             {
 
-                result = ResponseObject.CreateResponseError(500, ex.Message);
-                return result;
+                return BadRequest(new ResponseObject { Status = "Error", ErrorMessage = ex.Message });
             }
         }
 
         [Route("InativarEstudante")]
         [HttpPost]
-        public async Task<ResponseObject> InactivateStudent([FromBody] Student obj)
+        public ActionResult<ResponseObject> InactivateStudent([FromBody] Student obj)
         {
-            var result = new ResponseObject();
 
             if (obj == null)
             {
-                result.code = 405;
-                result.message = "Universal format JSON invalid, verify the fields.";
-                return result;
+                return BadRequest(new ResponseObject { Status = "Error", ErrorMessage = "invali json" });
             }
-
             try
             {
-                return await _studentService.InactivateStudent(obj);
+                return Ok(_studentService.EditStudent(obj));
             }
             catch (Exception ex)
             {
 
-                result = ResponseObject.CreateResponseError(500, ex.Message);
-                return result;
+                return BadRequest(new ResponseObject { Status = "Error", ErrorMessage = ex.Message });
             }
         }
 
