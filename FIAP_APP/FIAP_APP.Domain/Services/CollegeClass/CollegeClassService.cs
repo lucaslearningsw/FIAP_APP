@@ -24,6 +24,8 @@ namespace FIAP_APP.Domain.Services
            return await _classRepository.CreateCollegeClass(collegeClass);
         }
 
+
+
         public async Task EditCollegeClass(CollegeClass collegeClass)
         {
             await ValidateClass(collegeClass);
@@ -31,6 +33,22 @@ namespace FIAP_APP.Domain.Services
             await _classRepository.EditCollegeClass(collegeClass);
         }
 
+
+        public async Task<CollegeClass> GetCollegeClass(int id)
+        {
+            try
+            {
+                var collegeClasse = await _classRepository.GetCollegeClass(id);
+             
+                return collegeClasse;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
 
         private async Task ValidateClass(CollegeClass collegeClass)
         {

@@ -50,6 +50,26 @@ namespace FIAP_APP.API.Controllers
             }
         }
 
+        [Route("TurmaDetalhe")]
+        [HttpGet]
+        public async Task<ActionResult<CollegeClass>> GetCollegeClass(int id)
+        {
+            try
+            {
+                var collegeClass = await _collegeClassService.GetCollegeClass(id);
+
+                if (collegeClass == null) return NotFound();
+
+                return collegeClass;
+            }
+            catch (Exception)
+            {
+
+                return BadRequest();
+            }
+
+        }
+
         [Route("EditarTurma")]
         [HttpPost]
         public async Task<IActionResult> EditTurma([FromBody] CollegeClass obj)

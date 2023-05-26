@@ -94,6 +94,26 @@ namespace FIAP_APP.InfraData.SQL.Repositories.CollegeClass
             }
         }
 
+        public async Task<Domain.Models.CollegeClass> GetCollegeClass(int id)
+        {
+
+            try
+            {
+                var query = "SELECT * FROM turma WHERE Id = @id";
+                using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+                {
+                    connection.Open();
+                    var result = await connection.QuerySingleOrDefaultAsync<Domain.Models.CollegeClass>(query, new { id });
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception($"Erro para selecionar turma{ex.Message}");
+            }
+        }
+
         public async Task<Domain.Models.CollegeClass> HasClassWithSameName(string className)
         {
             try

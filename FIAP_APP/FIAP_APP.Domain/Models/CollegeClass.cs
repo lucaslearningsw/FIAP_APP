@@ -12,5 +12,7 @@ namespace FIAP_APP.Domain.Models
         public string Turma { get; set; }
         public DateTime Data { get; set;}
 
+        public string Ano { get; set; }
+
     }
 }

@@ -13,7 +13,7 @@ namespace FIAP_APP.API.Controllers
         private readonly StudentService _studentService;
         private readonly IMapper _mapper;
 
-        public StudentController(StudentService studentService , IMapper mapper)
+        public StudentController(StudentService studentService, IMapper mapper)
         {
             _studentService = studentService;
             _mapper = mapper;
@@ -21,7 +21,7 @@ namespace FIAP_APP.API.Controllers
 
         [Route("ListaEstudantes")]
         [HttpGet]
-        public  ActionResult<List<Student>> GetAllStudents()
+        public ActionResult<List<Student>> GetAllStudents()
         {
             try
             {
@@ -32,7 +32,27 @@ namespace FIAP_APP.API.Controllers
 
                 return BadRequest(new ResponseObject { Status = "Error", ErrorMessage = ex.Message });
             }
-           
+
+        }
+
+        [Route("EstudanteDetalhe")]
+        [HttpGet]
+        public async Task<ActionResult<Student>> GetStudent(int id)
+        {
+            try
+            {
+                var student = await _studentService.GetStudent(id);
+
+                if(student == null) return NotFound();
+
+                return student;
+            }
+            catch (Exception)
+            {
+
+                return BadRequest();
+            }
+
         }
 
         [Route("CriarEstudante")]
