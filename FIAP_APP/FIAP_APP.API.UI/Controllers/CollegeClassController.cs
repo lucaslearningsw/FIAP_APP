@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FIAP_APP.API.Controllers
 {
-    
+
     [Route("api/CollegeClass")]
     [ApiController]
     public class CollegeClassController : Controller
@@ -27,9 +27,9 @@ namespace FIAP_APP.API.Controllers
         {
             try
             {
-                return  _collegeClassService.GetAllClass();
+                return _collegeClassService.GetAllClass();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -46,25 +46,21 @@ namespace FIAP_APP.API.Controllers
             }
             catch (Exception ex)
             {
-              return BadRequest(new ResponseObject { Status = "Error", ErrorMessage = ex.Message });
+                return BadRequest(new ResponseObject { Status = "Error", ErrorMessage = ex.Message });
             }
-
-           
         }
 
         [Route("EditarTurma")]
         [HttpPost]
-        public ActionResult<ResponseObject> EditTurma([FromBody] CollegeClass obj)
+        public async Task<IActionResult> EditTurma([FromBody] CollegeClass obj)
         {
 
-            if (obj == null)
-            {
-                return BadRequest(new ResponseObject { Status = "Error", ErrorMessage = "invali json" });
-            }
+            if (!ModelState.IsValid) return BadRequest();
 
             try
             {
-                return Ok(_collegeClassService.EditCollegeClass(obj));
+               await _collegeClassService.EditCollegeClass(obj);
+               return Ok();
             }
             catch (Exception ex)
             {
@@ -76,9 +72,8 @@ namespace FIAP_APP.API.Controllers
 
         [Route("InativarTurma")]
         [HttpPost]
-        public  ActionResult<ResponseObject> InactivateClass([FromBody] CollegeClass obj)
+        public ActionResult<ResponseObject> InactivateClass([FromBody] CollegeClass obj)
         {
-
             if (obj == null)
             {
                 return BadRequest(new ResponseObject { Status = "Error", ErrorMessage = "invali json" });
@@ -90,7 +85,6 @@ namespace FIAP_APP.API.Controllers
             catch (Exception ex)
             {
                 return BadRequest(new ResponseObject { Status = "Error", ErrorMessage = ex.Message });
-
             }
         }
     }

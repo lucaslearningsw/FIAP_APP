@@ -18,30 +18,48 @@ namespace FIAP_APP.Domain.Services
         }
         public async Task<CollegeClass> CreateCollegeClass(CollegeClass collegeClass)
         {
-           var result = await _classRepository.HasClassWithSameName(collegeClass.Turma);
-            if (result != null)
-            {
-                throw new Exception($"Já existe uma turma com o nome {collegeClass.Turma}");
-            };
+ 
+           await ValidateClass(collegeClass);
 
-            if(collegeClass.Data.Date < DateTime.Now.Date.Date)
-            {
-                throw new Exception($"Não é possível criar turma com datas anterior a atual");
-            }
            return await _classRepository.CreateCollegeClass(collegeClass);
         }
 
         public async Task EditCollegeClass(CollegeClass collegeClass)
         {
+            await ValidateClass(collegeClass);
 
             await _classRepository.EditCollegeClass(collegeClass);
         }
 
+
+        private async Task ValidateClass(CollegeClass collegeClass)
+        {
+            if (collegeClass.Data.Date < DateTime.Now.Date)
+            {
+                throw new Exception($"Não é possível criar turma com datas anteriores a atual");
+            }
+
+            var result = await _classRepository.HasClassWithSameName(collegeClass.Turma.ToUpper());
+            if (result != null)
+            {
+                throw new Exception($"Já existe uma turma com o nome {collegeClass.Turma}");
+            };
+        }
+
         public  List<CollegeClass> GetAllClass()
         {
-            var result = _classRepository.GetAllClass();
+            try
+            {
+                var result = _classRepository.GetAllClass();
 
-            return result;
+                return result;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
         }
 
         public async Task InactivateCollegeClass(CollegeClass collegeClass)

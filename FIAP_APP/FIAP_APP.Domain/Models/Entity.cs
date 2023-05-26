@@ -9,7 +9,7 @@ namespace FIAP_APP.Domain.Models
 {
     public class Entity
     {
-        [JsonIgnore]
+      
         public int Id { get; set; }
     }
 }

@@ -27,7 +27,7 @@ namespace FIAP_APP.InfraData.SQL.Repositories.CollegeClass
                 var parameters = new DynamicParameters();
 
                 parameters.Add("turma", collegeClass.Turma, DbType.String);
-                parameters.Add("ano", collegeClass.Ano, DbType.Int32);
+                parameters.Add("ano", collegeClass.Data.Year, DbType.Int32);
 
                 using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
                 {
@@ -37,7 +37,7 @@ namespace FIAP_APP.InfraData.SQL.Repositories.CollegeClass
                     var createdCollegeClass = new Domain.Models.CollegeClass
                     {
                         Id= id, 
-                        Ano = collegeClass.Ano, 
+                        Data = collegeClass.Data.Date, 
                         Turma = collegeClass.Turma,
                     };
 
@@ -55,12 +55,12 @@ namespace FIAP_APP.InfraData.SQL.Repositories.CollegeClass
         {
             try
             {
-                var query = "UPDATE turma SET turma = @turma, ano = @ano, where Id = @id";
+                var query = "UPDATE turma SET turma = @turma, ano = @ano where Id = @id";
 
                 var parameters = new DynamicParameters();
 
                 parameters.Add("turma", collegeClass.Turma, DbType.String);
-                parameters.Add("ano", collegeClass.Ano, DbType.Int32);
+                parameters.Add("ano", collegeClass.Data.Date.Year, DbType.Int32);
                 parameters.Add("Id", collegeClass.Id, DbType.Int32);
 
                 using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
@@ -79,7 +79,7 @@ namespace FIAP_APP.InfraData.SQL.Repositories.CollegeClass
         {
             try
             {
-                var query = "SELECT * FROM TURMA";
+                var query = "SELECT id, turma, ano FROM TURMA";
                 using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
                 {
                     connection.Open();
@@ -98,7 +98,7 @@ namespace FIAP_APP.InfraData.SQL.Repositories.CollegeClass
         {
             try
             {
-                var query = "SELECT * FROM turma WHERE turma = @className";
+                var query = "SELECT * FROM turma WHERE UPPER(turma) = @className";
                 using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
                 {
                     connection.Open();
