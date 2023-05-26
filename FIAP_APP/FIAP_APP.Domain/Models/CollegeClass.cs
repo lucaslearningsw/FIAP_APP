@@ -11,5 +11,8 @@ namespace FIAP_APP.Domain.Models
         public int Curso_Id { get; set; }
         public string Turma { get; set; }
         public int Ano { get; set; }
+        
+        public DateTime Data { get; set;}
+
     }
 }

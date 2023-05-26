@@ -1,4 +1,6 @@
-﻿using FIAP_APP.Domain.Models;
+﻿using AutoMapper;
+using FIAP_APP.API.Dto.Student;
+using FIAP_APP.Domain.Models;
 using FIAP_APP.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,10 +11,12 @@ namespace FIAP_APP.API.Controllers
     public class StudentController : Controller
     {
         private readonly StudentService _studentService;
+        private readonly IMapper _mapper;
 
-        public StudentController(StudentService studentService)
+        public StudentController(StudentService studentService , IMapper mapper)
         {
             _studentService = studentService;
+            _mapper = mapper;
         }
 
         [Route("ListaEstudantes")]
@@ -33,17 +37,13 @@ namespace FIAP_APP.API.Controllers
 
         [Route("CriarEstudante")]
         [HttpPost]
-        public ActionResult<ResponseObject> CreateStudent([FromBody] Student obj)
+        public async Task<IActionResult> CreateStudent([FromBody] StudentCreationDto obj)
         {
-
-            if (obj == null)
-            {
-                return BadRequest(new ResponseObject { Status = "Error", ErrorMessage = "invali json" });
-            }
+            if (!ModelState.IsValid) return BadRequest();
 
             try
             {
-                return Ok(_studentService.CreateStudent(obj));
+                return Ok(await _studentService.CreateStudent(_mapper.Map<Student>(obj)));
             }
             catch (Exception ex)
             {
@@ -56,17 +56,18 @@ namespace FIAP_APP.API.Controllers
 
         [Route("EditarEstudante")]
         [HttpPost]
-        public  ActionResult<ResponseObject> EditStudent([FromBody] Student obj)
+        public async Task<IActionResult> EditStudent([FromBody] StudentUpdate obj)
         {
 
-            if (obj == null)
-            {
-                return BadRequest(new ResponseObject { Status = "Error", ErrorMessage = "invali json" });
-            }
+            if (!ModelState.IsValid) return BadRequest();
 
+            if (await _studentService.GetStudent(obj.Id) == null) return NotFound();
+           
             try
             {
-                return Ok(_studentService.EditStudent(obj));
+               await _studentService.EditStudent(_mapper.Map<Student>(obj));
+
+               return Ok();
             }
             catch (Exception ex)
             {
@@ -80,13 +81,10 @@ namespace FIAP_APP.API.Controllers
         public ActionResult<ResponseObject> InactivateStudent([FromBody] Student obj)
         {
 
-            if (obj == null)
-            {
-                return BadRequest(new ResponseObject { Status = "Error", ErrorMessage = "invali json" });
-            }
+            if (!ModelState.IsValid) return BadRequest();
             try
             {
-                return Ok(_studentService.EditStudent(obj));
+                return Ok( _studentService.EditStudent(obj));
             }
             catch (Exception ex)
             {

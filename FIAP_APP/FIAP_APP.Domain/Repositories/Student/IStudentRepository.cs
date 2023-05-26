@@ -11,10 +11,13 @@ namespace FIAP_APP.Domain.Repositories.Student
     {
         List<Domain.Models.Student> GetAllStudents();
 
-        ResponseObject CreateStudent(Domain.Models.Student student);
+        Task<Domain.Models.Student> CreateStudent(Domain.Models.Student student);
 
-        ResponseObject EditStudent(Domain.Models.Student student);
+        Task EditStudent(Domain.Models.Student student);
 
-        ResponseObject InactivateStudent(Domain.Models.Student student);
+        Task<Domain.Models.Student> InactivateStudent(Domain.Models.Student student);
+
+        Task<Domain.Models.Student> GetStudent(int id);
+
     }
 }

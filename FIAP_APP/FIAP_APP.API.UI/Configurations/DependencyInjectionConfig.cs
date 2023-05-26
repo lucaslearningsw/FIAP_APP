@@ -17,6 +17,7 @@ namespace FIAP_APP.API.Configurations
             services.AddScoped<ICollegeClassRepository, CollegeClassRepository>();
             services.AddScoped<CollegeClassService>();
             services.AddScoped<StudentService>();
+            services.AddScoped<CollegeClassService>();
 
             return services;
         }

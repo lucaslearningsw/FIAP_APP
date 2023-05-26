@@ -11,12 +11,12 @@ namespace FIAP_APP.Domain.Repositories.CollegeClass
     {
         List<Domain.Models.CollegeClass> GetAllClass();
 
-        ResponseObject InactivateCollegeClass(Domain.Models.CollegeClass collegeClass);
+        Task InactivateCollegeClass(Domain.Models.CollegeClass collegeClass);
 
-        ResponseObject CreateCollegeClass(Domain.Models.CollegeClass collegeClass);
+        Task<Domain.Models.CollegeClass> CreateCollegeClass(Domain.Models.CollegeClass collegeClass);
 
-        ResponseObject EditCollegeClass(Domain.Models.CollegeClass collegeClass);
+        Task EditCollegeClass(Domain.Models.CollegeClass collegeClass);
 
-        bool HasClassWithSameName(Domain.Models.CollegeClass collegeClass);
+        Task<Domain.Models.CollegeClass> HasClassWithSameName(string className);
     }
 }

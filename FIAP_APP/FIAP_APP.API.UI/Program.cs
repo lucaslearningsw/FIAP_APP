@@ -6,12 +6,13 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "FIAP API", Version = "v1" });
 });
-
 
 builder.Services.ResolveDependencies();
 var app = builder.Build();

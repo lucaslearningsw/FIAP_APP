@@ -1,4 +1,6 @@
-﻿using FIAP_APP.Domain.Models;
+﻿using AutoMapper;
+using FIAP_APP.API.Dto.CollegeClass;
+using FIAP_APP.Domain.Models;
 using FIAP_APP.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,10 +12,12 @@ namespace FIAP_APP.API.Controllers
     public class CollegeClassController : Controller
     {
         private readonly CollegeClassService _collegeClassService;
+        private readonly IMapper _mapper;
 
-        public CollegeClassController(CollegeClassService collegeClassService)
+        public CollegeClassController(CollegeClassService collegeClassService, IMapper mapper)
         {
             _collegeClassService = collegeClassService;
+            _mapper = mapper;
         }
 
 
@@ -27,22 +31,18 @@ namespace FIAP_APP.API.Controllers
             }
             catch (Exception ex)
             {
-
                 throw;
             }
         }
 
         [Route("CriarTurma")]
         [HttpPost]
-        public ActionResult<ResponseObject> CreateClass([FromBody] CollegeClass obj)
+        public async Task<IActionResult> CreateClass([FromBody] CollegeClassCreationDto obj)
         {
-            if (obj == null)
-            {
-                return BadRequest(new ResponseObject { Status = "Error", ErrorMessage = "invali json" });
-            }
+            if (!ModelState.IsValid) return BadRequest();
             try
             {
-                return Ok(_collegeClassService.CreateCollegeClass(obj));
+                return Ok(await _collegeClassService.CreateCollegeClass(_mapper.Map<CollegeClass>(obj)));
             }
             catch (Exception ex)
             {
