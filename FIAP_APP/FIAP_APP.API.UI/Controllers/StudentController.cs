@@ -2,6 +2,7 @@
 using FIAP_APP.API.Dto.Student;
 using FIAP_APP.Domain.Models;
 using FIAP_APP.Domain.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FIAP_APP.API.Controllers
@@ -35,9 +36,9 @@ namespace FIAP_APP.API.Controllers
 
         }
 
-        [Route("EstudanteDetalhe")]
+        [Route("estudante-detalhe/{id:int}")]
         [HttpGet]
-        public async Task<ActionResult<Student>> GetStudent(int id)
+        public async Task<ActionResult<Student>> GetStudent([FromBody] int id)
         {
             try
             {
@@ -56,6 +57,7 @@ namespace FIAP_APP.API.Controllers
         }
 
         [Route("CriarEstudante")]
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> CreateStudent([FromBody] StudentCreationDto obj)
         {

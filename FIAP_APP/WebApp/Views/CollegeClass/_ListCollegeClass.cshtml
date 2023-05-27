@@ -1,0 +1,34 @@
+﻿@model IEnumerable<WebApp.Models.Dto.CollegeClass.CollegeClassDto>
+
+
+<table class="table table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Turma)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Ano)
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Turma)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ano)
+                </td>
+                <td class="text-right">
+                    <a class="btn btn-warning" asp-controller="CollegeClass" asp-action="Edit" asp-route-id="@item.Id"><spam class="fa fa-pencil-alt">EDITAR</a>
+                    <a class="btn btn-danger" asp-controller="CollegeClass" asp-action="Delete" asp-route-id="@item.Id"><spam class="fa fa-trash">EXCLUIR</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,14 @@
+﻿@model IEnumerable<WebApp.Models.Dto.CollegeClass.CollegeClassDto>
+
+@{
+    ViewData["Title"] = "Lista de Turmas";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<vc:summary></vc:summary>
+
+<p>
+    <a class="btn btn-info" asp-action="Create">Nova Turma</a>
+</p>
+<partial name="_ListCollegeClass" />

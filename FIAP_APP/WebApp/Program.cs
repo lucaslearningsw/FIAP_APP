@@ -1,7 +1,16 @@
+using WebApp.Services;
+using WebApp.Services.IServices;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddHttpClient<IStudentService, StudentService>();
+builder.Services.AddScoped<IStudentService, StudentService>();
+builder.Services.AddHttpClient<ICollegeClassService, CollegeClassService>();
+builder.Services.AddScoped<ICollegeClassService, CollegeClassService>();
 
 var app = builder.Build();
 

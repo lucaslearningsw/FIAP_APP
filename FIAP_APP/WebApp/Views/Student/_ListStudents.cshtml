@@ -1,0 +1,33 @@
+﻿@model IEnumerable<WebApp.Models.Dto.Student.StudentDto>
+
+
+<table class="table table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Usuario)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Usuario)
+                </td>
+                <td class="text-right">
+                    <a class="btn btn-warning" asp-controller="Student" asp-action="Edit" asp-route-id="@item.Id"><spam class="fa fa-pencil-alt">EDITAR</a>
+                    <a class="btn btn-danger" asp-controller="Student" asp-action="Delete" asp-route-id="@item.Id"><spam class="fa fa-trash">EXCLUIR</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

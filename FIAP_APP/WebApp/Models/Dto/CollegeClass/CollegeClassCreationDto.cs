@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace FIAP_APP.API.Dto.CollegeClass
+namespace WebApp.Models.Dto.CollegeClass
 {
     public class CollegeClassCreationDto
     {
