@@ -1,4 +1,5 @@
 ﻿using Flurl.Http;
+using Microsoft.AspNetCore.Mvc.Routing;
 using WebApp.Models.Dto;
 using WebApp.Models.Dto.CollegeClass;
 using WebApp.Models.Dto.Student;
@@ -15,14 +16,20 @@ namespace WebApp.Services
             apiUrl = configuration.GetValue<string>("ServicesUrls:APIUrl");
         }
 
-        public Task CreateCollegeClassAsync(CollegeClassCreationDto dto)
+        public async Task CreateCollegeClassAsync(CollegeClassCreationDto dto)
         {
-            throw new NotImplementedException();
-        }
+            try
+            {
+                var url = apiUrl + "/api/CollegeClass/criar-turma";
 
-        public Task DeleteCollegeClassAsync(int id)
-        {
-            throw new NotImplementedException();
+                await url.PostJsonAsync(dto);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
         }
 
         public async Task<List<CollegeClassDto>> GetAllCollegeAsync()
@@ -46,9 +53,9 @@ namespace WebApp.Services
         {
             try
             {
-                var student = await $"{apiUrl}/api/CollegeClass/turma-detalhe?id={id}".GetJsonAsync<CollegeClassDto>();
+                var collegeClass = await $"{apiUrl}/api/CollegeClass/turma-detalhe?id={id}".GetJsonAsync<CollegeClassDto>();
 
-                return student;
+                return collegeClass;
             }
             catch (Exception)
             {
@@ -57,11 +64,27 @@ namespace WebApp.Services
             }
         }
 
-        public async Task UpdateCollegeClassAsync(CollegeClassDto dto)
+        public async Task UpdateCollegeClassAsync(CollegeClassUpdateDto dto)
         {
             try
             {
-                var student = await $"{apiUrl}/api/CollegeClass/editar-turma".PutJsonAsync(dto);
+                var url = apiUrl + "/api/CollegeClass/editar-turma";
+
+                await url.PostJsonAsync(dto);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
+        public async Task DeleteCollegeClassAsync(int id)
+        {
+            try
+            {
+                await $"{apiUrl}/api/CollegeClass/inativar-turma?id={id}".DeleteAsync();
+
             }
             catch (Exception)
             {

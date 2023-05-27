@@ -60,10 +60,9 @@ namespace WebApp.Controllers
 
         [Route("editar-turma/{id:int}")]
         [HttpPost]
-        public async Task<IActionResult> Edit(CollegeClassDto collegeClass)
+        public async Task<IActionResult> Edit(CollegeClassUpdateDto collegeClass)
         {
-            if (!ModelState.IsValid) return View(collegeClass);
-
+  
             var collegeClassResult = await _collegeClass.GetCollegeClassAsync(collegeClass.Id);
 
             if (collegeClassResult == null) return NotFound();
@@ -74,7 +73,33 @@ namespace WebApp.Controllers
             return RedirectToAction("index");
         }
 
+        [Route("deletar-turma/{id:int}")]
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> Delete(CollegeClassUpdateDto collegeClass)
+        {
 
+            var collegeClassResult = await _collegeClass.GetCollegeClassAsync(collegeClass.Id);
+
+            if (collegeClassResult == null) return NotFound();
+
+            await _collegeClass.DeleteCollegeClassAsync(collegeClass.Id);
+
+
+            return RedirectToAction("index");
+        }
+
+
+        [Route("deletar-turma/{id:int}")]
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var collegeClassResult = await _collegeClass.GetCollegeClassAsync(id);
+
+            if (collegeClassResult == null) return NotFound();
+
+            return View(collegeClassResult);
+
+        }
 
 
 

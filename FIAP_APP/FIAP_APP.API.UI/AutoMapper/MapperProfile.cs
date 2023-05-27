@@ -13,6 +13,7 @@ namespace FIAP_APP.API.AutoMapper
             CreateMap<StudentCreationDto, Student>().ReverseMap();
             CreateMap<StudentUpdate, Student>().ReverseMap();
             CreateMap<CollegeClassCreationDto, CollegeClass>().ReverseMap();
+            CreateMap<CollegeClassUpdateDto, CollegeClass>().ReverseMap();
         }
     }
 }

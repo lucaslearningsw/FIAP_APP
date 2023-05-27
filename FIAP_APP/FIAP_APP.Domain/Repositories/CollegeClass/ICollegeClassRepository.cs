@@ -13,7 +13,7 @@ namespace FIAP_APP.Domain.Repositories.CollegeClass
 
         Task <Domain.Models.CollegeClass> GetCollegeClass(int id);
 
-        Task InactivateCollegeClass(Domain.Models.CollegeClass collegeClass);
+        Task InactivateCollegeClass(int id);
 
         Task<Domain.Models.CollegeClass> CreateCollegeClass(Domain.Models.CollegeClass collegeClass);
 

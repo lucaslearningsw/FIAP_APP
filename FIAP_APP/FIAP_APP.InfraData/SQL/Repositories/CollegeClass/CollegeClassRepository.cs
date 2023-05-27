@@ -134,9 +134,25 @@ namespace FIAP_APP.InfraData.SQL.Repositories.CollegeClass
            
         }
 
-        public Task InactivateCollegeClass(Domain.Models.CollegeClass collegeClass)
+        public async Task InactivateCollegeClass(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var query = "DELETE FROM turma where Id = @id";
+
+                var parameters = new DynamicParameters();
+                parameters.Add("Id", id, DbType.Int32);
+
+                using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+                {
+                    connection.Open();
+                    await connection.ExecuteAsync(query, parameters);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error para excluir turma {ex.Message}");
+            }
         }
     }
 }

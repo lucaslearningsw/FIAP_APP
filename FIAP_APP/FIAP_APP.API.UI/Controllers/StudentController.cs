@@ -58,7 +58,7 @@ namespace FIAP_APP.API.Controllers
 
         [Route("criar-estudante")]
         [HttpPost]
-        public async Task<IActionResult> CreateStudent(StudentCreationDto obj)
+        public async Task<IActionResult> CreateStudent([FromBody] StudentCreationDto obj)
         {
             if (!ModelState.IsValid) return BadRequest();
 

@@ -72,15 +72,15 @@ namespace FIAP_APP.API.Controllers
 
         [Route("editar-turma")]
         [HttpPost]
-        public async Task<IActionResult> EditTurma(CollegeClass obj)
+        public async Task<IActionResult> EditTurma([FromBody] CollegeClassUpdateDto dto)
         {
 
             if (!ModelState.IsValid) return BadRequest();
 
             try
             {
-               await _collegeClassService.EditCollegeClass(obj);
-               return Ok();
+                await _collegeClassService.EditCollegeClass(_mapper.Map<CollegeClass>(dto));
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -91,16 +91,13 @@ namespace FIAP_APP.API.Controllers
 
 
         [Route("inativar-turma")]
-        [HttpPost]
-        public ActionResult<ResponseObject> InactivateClass([FromBody] CollegeClass obj)
+        [HttpDelete]
+        public  async Task<IActionResult> InactivateClass(int id)
         {
-            if (obj == null)
-            {
-                return BadRequest(new ResponseObject { Status = "Error", ErrorMessage = "invali json" });
-            }
             try
             {
-                return Ok(_collegeClassService.InactivateCollegeClass(obj));
+               await _collegeClassService.InactivateCollegeClass(id);
+                return Ok();
             }
             catch (Exception ex)
             {

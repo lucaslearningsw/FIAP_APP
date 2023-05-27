@@ -1,13 +1,9 @@
-﻿
-using Newtonsoft.Json;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-
-namespace WebApp.Models.Dto
+namespace FIAP_APP.API.Dto.CollegeClass
 {
     public class CollegeClassUpdateDto
     {
-        [JsonProperty]
         public int Id { get; set; }
 
         [StringLength(45, ErrorMessage = "O campo {0} precisa ter entre {2} e {1} caracters", MinimumLength = 2)]
@@ -16,7 +12,6 @@ namespace WebApp.Models.Dto
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public DateTime Data { get; set; }
-
-
     }
 }
+

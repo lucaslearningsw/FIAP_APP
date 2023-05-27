@@ -80,9 +80,9 @@ namespace FIAP_APP.Domain.Services
             
         }
 
-        public async Task InactivateCollegeClass(CollegeClass collegeClass)
+        public async Task InactivateCollegeClass(int id)
         {
-            await  _classRepository.InactivateCollegeClass(collegeClass);
+            await  _classRepository.InactivateCollegeClass(id);
 
         }
     }
