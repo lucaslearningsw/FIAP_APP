@@ -29,7 +29,7 @@ namespace WebApp.Services
         {
             try
             {
-                var url = apiUrl + "/api/CollegeClass/ListaTurma";
+                var url = apiUrl + "/api/CollegeClass/lista-turma";
 
                 var listResult = await url.GetJsonAsync<List<CollegeClassDto>>();
 
@@ -42,14 +42,31 @@ namespace WebApp.Services
             }
         }
 
-        public Task<CollegeClassDto> GetCollegeClassAsync(int id)
+        public async Task<CollegeClassDto> GetCollegeClassAsync(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var student = await $"{apiUrl}/api/CollegeClass/turma-detalhe?id={id}".GetJsonAsync<CollegeClassDto>();
+
+                return student;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
-        public Task UpdateCollegeClassAsync(CollegeClassUpdateDto dto)
+        public async Task UpdateCollegeClassAsync(CollegeClassDto dto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var student = await $"{apiUrl}/api/CollegeClass/editar-turma".PutJsonAsync(dto);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

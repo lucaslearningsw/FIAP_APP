@@ -1,4 +1,4 @@
-﻿@model WebApp.Models.Dto.StudentUpdate
+﻿@model WebApp.Models.Dto.Student.StudentDto
 
 @{
     ViewData["Title"] = "Editar " + Model.Nome;
@@ -35,10 +35,6 @@
             <div class="form-group">
                 <input type="submit" value="Salvar" class="btn btn-primary" />
                 <a class="btn btn-info" asp-action="Index">Voltar</a>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Salvar" class="btn btn-primary" />
-                <a class="btn btn-info" href="javascript:window.history.back();">Voltar</a>
             </div>
         </form>
     </div>

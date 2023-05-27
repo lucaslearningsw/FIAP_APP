@@ -24,9 +24,9 @@ namespace WebApp.Services
         {
             try
             {
-                var url = apiUrl + "/api/Student/CriarEstudante";
+                var url = apiUrl + "/api/Student/criar-estudante";
 
-                await url.PostJsonAsync(JsonConvert.SerializeObject(dto));
+                await url.PostJsonAsync(dto);
             }
             catch (Exception)
             {
@@ -45,7 +45,7 @@ namespace WebApp.Services
         {
             try
             {
-                var url = apiUrl + "/api/Student/ListaEstudantes";
+                var url = apiUrl + "/api/Student/lista-estudantes";
 
                 var listResult = await url.GetJsonAsync<List<StudentDto>>();
 
@@ -63,13 +63,10 @@ namespace WebApp.Services
         {
             try
             {
-                var api = apiUrl + $"/api/Student/estudante-detalhe/{id}";
-
-              
-               var student = await api.GetJsonAsync<StudentDto>();
+                var student = await $"{apiUrl}/api/Student/estudante-detalhe?id={id}".
+                GetJsonAsync<StudentDto>();
 
                return student;
-
             }
             catch (Exception)
             {
@@ -78,9 +75,16 @@ namespace WebApp.Services
             }
         }
 
-        public Task UpdateStudentAsync (StudentUpdate dto)
+        public async Task UpdateStudentAsync (StudentUpdate dto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var student = await $"{apiUrl}/api/Student/editar-estudante".PutJsonAsync(dto);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

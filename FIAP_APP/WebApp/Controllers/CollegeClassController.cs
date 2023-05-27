@@ -44,6 +44,38 @@ namespace WebApp.Controllers
         }
 
 
+        [Route("editar-turma/{id:int}")]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var collegeClass = await _collegeClass.GetCollegeClassAsync(id);
+
+            if (collegeClass == null)
+            {
+                return NotFound();
+            }
+
+            return View(collegeClass);
+        }
+
+
+        [Route("editar-turma/{id:int}")]
+        [HttpPost]
+        public async Task<IActionResult> Edit(CollegeClassDto collegeClass)
+        {
+            if (!ModelState.IsValid) return View(collegeClass);
+
+            var collegeClassResult = await _collegeClass.GetCollegeClassAsync(collegeClass.Id);
+
+            if (collegeClassResult == null) return NotFound();
+
+            await _collegeClass.UpdateCollegeClassAsync(collegeClass);
+
+
+            return RedirectToAction("index");
+        }
+
+
+
 
 
     }

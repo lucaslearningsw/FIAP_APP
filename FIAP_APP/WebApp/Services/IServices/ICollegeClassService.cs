@@ -9,7 +9,7 @@ namespace WebApp.Services.IServices
         Task<CollegeClassDto> GetCollegeClassAsync(int id);
 
         Task CreateCollegeClassAsync(CollegeClassCreationDto dto);
-        Task UpdateCollegeClassAsync(CollegeClassUpdateDto dto);
+        Task UpdateCollegeClassAsync(CollegeClassDto dto);
 
         Task DeleteCollegeClassAsync (int id);
     }

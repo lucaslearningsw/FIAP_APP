@@ -20,7 +20,7 @@ namespace FIAP_APP.API.Controllers
             _mapper = mapper;
         }
 
-        [Route("ListaEstudantes")]
+        [Route("lista-estudantes")]
         [HttpGet]
         public ActionResult<List<Student>> GetAllStudents()
         {
@@ -36,9 +36,9 @@ namespace FIAP_APP.API.Controllers
 
         }
 
-        [Route("estudante-detalhe/{id:int}")]
         [HttpGet]
-        public async Task<ActionResult<Student>> GetStudent([FromBody] int id)
+        [Route("estudante-detalhe")]
+        public async Task<ActionResult<Student>> GetStudent(int id)
         {
             try
             {
@@ -56,10 +56,9 @@ namespace FIAP_APP.API.Controllers
 
         }
 
-        [Route("CriarEstudante")]
-        [AllowAnonymous]
+        [Route("criar-estudante")]
         [HttpPost]
-        public async Task<IActionResult> CreateStudent([FromBody] StudentCreationDto obj)
+        public async Task<IActionResult> CreateStudent(StudentCreationDto obj)
         {
             if (!ModelState.IsValid) return BadRequest();
 
@@ -76,9 +75,11 @@ namespace FIAP_APP.API.Controllers
           
         }
 
-        [Route("EditarEstudante")]
-        [HttpPost]
-        public async Task<IActionResult> EditStudent([FromBody] StudentUpdate obj)
+
+        [AllowAnonymous]
+        [Route("editar-estudante")]
+        [HttpPut]
+        public async Task<IActionResult> EditStudent(StudentUpdate obj)
         {
 
             if (!ModelState.IsValid) return BadRequest();
@@ -97,6 +98,7 @@ namespace FIAP_APP.API.Controllers
                 return BadRequest(new ResponseObject { Status = "Error", ErrorMessage = ex.Message });
             }
         }
+
 
         [Route("InativarEstudante")]
         [HttpPost]

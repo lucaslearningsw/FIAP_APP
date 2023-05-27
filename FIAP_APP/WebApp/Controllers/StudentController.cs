@@ -40,7 +40,6 @@ namespace WebApp.Controllers
         [Route("novo-aluno")]
         public async Task<IActionResult> Create()
         {
-
             return View("Create");
         }
 
@@ -62,8 +61,13 @@ namespace WebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(StudentUpdate student)
         {
-
             if (!ModelState.IsValid) return View(student);
+
+            var studentResult = await _studentService.GetStudentAsync(student.Id);
+
+            if (studentResult == null) return NotFound();
+
+            student.Senha = HashGenerator.GenerateHash(student.Senha);
 
             await _studentService.UpdateStudentAsync(student);
 

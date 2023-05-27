@@ -21,21 +21,21 @@ namespace FIAP_APP.API.Controllers
         }
 
 
-        [Route("ListaTurma")]
+        [Route("lista-turma")]
         [HttpGet]
-        public async Task<List<CollegeClass>> GetAllCollegeClass()
+        public ActionResult<List<CollegeClass>> GetAllCollegeClass()
         {
             try
             {
                 return _collegeClassService.GetAllClass();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                return BadRequest(new ResponseObject { Status = "Error", ErrorMessage = ex.Message });
             }
         }
 
-        [Route("CriarTurma")]
+        [Route("criar-turma")]
         [HttpPost]
         public async Task<IActionResult> CreateClass([FromBody] CollegeClassCreationDto obj)
         {
@@ -50,7 +50,7 @@ namespace FIAP_APP.API.Controllers
             }
         }
 
-        [Route("TurmaDetalhe")]
+        [Route("turma-detalhe")]
         [HttpGet]
         public async Task<ActionResult<CollegeClass>> GetCollegeClass(int id)
         {
@@ -70,9 +70,9 @@ namespace FIAP_APP.API.Controllers
 
         }
 
-        [Route("EditarTurma")]
+        [Route("editar-turma")]
         [HttpPost]
-        public async Task<IActionResult> EditTurma([FromBody] CollegeClass obj)
+        public async Task<IActionResult> EditTurma(CollegeClass obj)
         {
 
             if (!ModelState.IsValid) return BadRequest();
@@ -90,7 +90,7 @@ namespace FIAP_APP.API.Controllers
         }
 
 
-        [Route("InativarTurma")]
+        [Route("inativar-turma")]
         [HttpPost]
         public ActionResult<ResponseObject> InactivateClass([FromBody] CollegeClass obj)
         {
