@@ -4,8 +4,7 @@ namespace FIAP_APP.API.Dto.Student
 {
     public class StudentUpdate
     {
-        
-        [Required(ErrorMessage = "O campo {0} é obrigatório")]
+ 
         public int Id { get; set; }
 
         [StringLength(255, ErrorMessage = "O campo {0} precisa ter entre {2} e {1} caracters", MinimumLength = 2)]
@@ -16,8 +15,7 @@ namespace FIAP_APP.API.Dto.Student
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public string Usuario { get; set; }
 
-        [StringLength(60, ErrorMessage = "O campo {0} precisa ter entre {2} e {1} caracters", MinimumLength = 2)]
-        [Required(ErrorMessage = "O campo {0} é obrigatório")]
+        
         public string Senha { get; set; }
 
     }

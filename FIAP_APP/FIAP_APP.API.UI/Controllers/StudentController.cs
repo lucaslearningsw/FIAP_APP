@@ -31,7 +31,7 @@ namespace FIAP_APP.API.Controllers
             catch (Exception ex)
             {
 
-                return BadRequest(new ResponseObject { Status = "Error", ErrorMessage = ex.Message });
+                return BadRequest(ex.Message);
             }
 
         }
@@ -48,10 +48,10 @@ namespace FIAP_APP.API.Controllers
 
                 return student;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                return BadRequest();
+                return BadRequest(ex.Message);
             }
 
         }
@@ -69,16 +69,15 @@ namespace FIAP_APP.API.Controllers
             catch (Exception ex)
             {
 
-                return BadRequest(new ResponseObject { Status = "Error", ErrorMessage = ex.Message});
+                return BadRequest(ex.Message);
             }
 
           
         }
 
 
-        [AllowAnonymous]
         [Route("editar-estudante")]
-        [HttpPut]
+        [HttpPost]
         public async Task<IActionResult> EditStudent(StudentUpdate obj)
         {
 
@@ -95,25 +94,24 @@ namespace FIAP_APP.API.Controllers
             catch (Exception ex)
             {
 
-                return BadRequest(new ResponseObject { Status = "Error", ErrorMessage = ex.Message });
+                return BadRequest(ex.Message);
             }
         }
 
 
-        [Route("InativarEstudante")]
-        [HttpPost]
-        public ActionResult<ResponseObject> InactivateStudent([FromBody] Student obj)
+        [Route("inativar-aluno")]
+        [HttpDelete]
+        public async Task<IActionResult>InactivateStudent(int id)
         {
-
-            if (!ModelState.IsValid) return BadRequest();
             try
             {
-                return Ok( _studentService.EditStudent(obj));
+                await _studentService.InactivateStudent(id);
+                return Ok();
             }
             catch (Exception ex)
             {
 
-                return BadRequest(new ResponseObject { Status = "Error", ErrorMessage = ex.Message });
+                return BadRequest(ex.Message);
             }
         }
 

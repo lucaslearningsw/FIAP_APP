@@ -121,9 +121,26 @@ namespace FIAP_APP.InfraData.SQL.Repositories.Student
            
         }
 
-        public async Task<Domain.Models.Student> InactivateStudent(Domain.Models.Student student)
+        public async Task InactivateStudent(int id)
         {
-            throw new NotImplementedException();
+
+            try
+            {
+                var query = "DELETE FROM ALUNO where Id = @id";
+
+                var parameters = new DynamicParameters();
+                parameters.Add("Id", id, DbType.Int32);
+
+                using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
+                {
+                    connection.Open();
+                    await connection.ExecuteAsync(query, parameters);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error para aluno turma {ex.Message}");
+            }
         }
 
     }

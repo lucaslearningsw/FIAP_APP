@@ -17,10 +17,18 @@ namespace WebApp.Controllers
         [Route("lista-alunos")]
         public async Task<IActionResult> Index()
         {
+            try
+            {
+                var listResult = await _studentService.GetAllStudentAsync();
 
-            var listResult = await _studentService.GetAllStudentAsync();
-            
-            return View(listResult);
+                return View(listResult);
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = $"{ex.Message}";
+                return View("Index");
+            }
+
         }
 
         [Route("novo-aluno")]
@@ -32,8 +40,18 @@ namespace WebApp.Controllers
 
             studentDto.Senha = HashGenerator.GenerateHash(studentDto.Senha);
 
-            await _studentService.CreateStudent(studentDto);
+            try
+            {
+                await _studentService.CreateStudent(studentDto);
+            }
+            catch (Exception ex)
+            {
 
+                TempData["Error"] = $"{ex.Message}";
+                return View("Create");
+            }
+
+            TempData["Sucesso"] = "Aluno criado com sucesso";
             return RedirectToAction("Index");
         }
 
@@ -47,32 +65,86 @@ namespace WebApp.Controllers
         [Route("editar-aluno/{id:int}")]
         public async Task<IActionResult> Edit(int id)
         {
-            var student = await _studentService.GetStudentAsync(id);
-
-            if (student == null)
+            try
             {
-                return NotFound();
+                var student = await _studentService.GetStudentAsync(id);
+                if (student == null)
+                {
+                    return NotFound();
+                }
+                return View(student);
             }
+            catch (Exception ex)
+            {
 
-            return View(student);
+                TempData["Error"] = $"{ex.Message}";
+                return View("Edit");
+            }
         }
 
         [Route("editar-aluno/{id:int}")]
         [HttpPost]
-        public async Task<IActionResult> Edit(StudentUpdate student)
+        public async Task<IActionResult> Edit(StudentDto student)
         {
             if (!ModelState.IsValid) return View(student);
 
-            var studentResult = await _studentService.GetStudentAsync(student.Id);
+            try
+            {
+                var studentResult = await _studentService.GetStudentAsync(student.Id);
 
-            if (studentResult == null) return NotFound();
+                if (studentResult == null) return NotFound();
 
-            student.Senha = HashGenerator.GenerateHash(student.Senha);
+                student.Senha = HashGenerator.GenerateHash(student.Senha);
 
-            await _studentService.UpdateStudentAsync(student);
+                 await _studentService.UpdateStudentAsync(student);
+
+                TempData["Sucesso"] = "Aluno editado com sucesso";
+                return RedirectToAction("index");
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = $"{ex.Message}";
+                return View("Edit");
+            }
+        }
 
 
-            return RedirectToAction("index");
+        [Route("deletar-aluno/{id:int}")]
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> Delete(StudentDto studentDto)
+        {
+
+            var student = await _studentService.GetStudentAsync(studentDto.Id);
+
+            if (student == null) return NotFound();
+
+            try
+            {
+                await _studentService.DeleteStudentAsync(studentDto.Id);
+                TempData["Sucesso"] = "Aluno Inativado com sucesso";
+                return RedirectToAction("index");
+            }
+            catch (Exception ex)
+            {
+
+                TempData["Error"] = $"{ex.Message}";
+                return View(studentDto);
+            }
+
+           
+        }
+
+
+        [Route("deletar-aluno/{id:int}")]
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var student = await _studentService.GetStudentAsync(id);
+
+            if (student == null) return NotFound();
+
+            return View(student);
+
         }
 
 

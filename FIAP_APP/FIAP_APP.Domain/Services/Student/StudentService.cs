@@ -44,11 +44,9 @@ namespace FIAP_APP.Domain.Services
             return result;
         }
 
-        public  Task InactivateStudent(Student student)
+        public async Task InactivateStudent(int id)
         {
-            var result = _studentRepo.InactivateStudent(student);
-
-            return result;
+             await _studentRepo.InactivateStudent(id);
         }
     }
 }

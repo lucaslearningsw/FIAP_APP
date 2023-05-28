@@ -15,7 +15,7 @@ namespace FIAP_APP.Domain.Repositories.Student
 
         Task EditStudent(Domain.Models.Student student);
 
-        Task<Domain.Models.Student> InactivateStudent(Domain.Models.Student student);
+        Task  InactivateStudent(int id);
 
         Task<Domain.Models.Student> GetStudent(int id);
 

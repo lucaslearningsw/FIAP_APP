@@ -28,17 +28,35 @@ namespace WebApp.Services
 
                 await url.PostJsonAsync(dto);
             }
+            catch (FlurlHttpException ex)
+            {
+                var exceptionMessage = await ex.GetResponseStringAsync();
+                throw new Exception(exceptionMessage);
+            }
             catch (Exception)
             {
-
                 throw;
             }
-           
+
         }
 
-        public Task  DeleteStudentAsync (int id)
+        public async Task  DeleteStudentAsync (int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await $"{apiUrl}/api/Student/inativar-aluno?id={id}".DeleteAsync();
+
+            }
+            catch (FlurlHttpException ex)
+            {
+                var exceptionMessage = await ex.GetResponseStringAsync();
+                throw new Exception(exceptionMessage);
+            }
+
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public async Task<List<StudentDto>> GetAllStudentAsync()
@@ -51,12 +69,16 @@ namespace WebApp.Services
 
                 return listResult;
             }
+            catch (FlurlHttpException ex)
+            {
+                var exceptionMessage = await ex.GetResponseStringAsync();
+                throw new Exception(exceptionMessage);
+            }
             catch (Exception)
             {
-
                 throw;
             }
-           
+
         }
 
         public async Task<StudentDto> GetStudentAsync(int id)
@@ -68,23 +90,34 @@ namespace WebApp.Services
 
                return student;
             }
+            catch (FlurlHttpException ex)
+            {
+                var exceptionMessage = await ex.GetResponseStringAsync();
+                throw new Exception(exceptionMessage);
+            }
             catch (Exception)
             {
-
                 throw;
             }
         }
 
-        public async Task UpdateStudentAsync (StudentUpdate dto)
+        public async Task UpdateStudentAsync (StudentDto dto)
         {
             try
             {
-                var student = await $"{apiUrl}/api/Student/editar-estudante".PutJsonAsync(dto);
+                var student = await $"{apiUrl}/api/Student/editar-estudante".PostJsonAsync(dto);
+            }
+            catch (FlurlHttpException ex)
+            {
+                var exceptionMessage = await ex.GetResponseStringAsync();
+                throw new Exception(exceptionMessage);
             }
             catch (Exception)
             {
                 throw;
             }
         }
+
+
     }
 }

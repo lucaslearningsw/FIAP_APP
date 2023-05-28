@@ -9,7 +9,7 @@ namespace WebApp.Services.IServices
         Task<StudentDto> GetStudentAsync(int id);
 
         Task CreateStudent (StudentCreationDto dto);
-        Task UpdateStudentAsync(StudentUpdate dto);
+        Task UpdateStudentAsync(StudentDto dto);
 
         Task DeleteStudentAsync(int id);
     }
