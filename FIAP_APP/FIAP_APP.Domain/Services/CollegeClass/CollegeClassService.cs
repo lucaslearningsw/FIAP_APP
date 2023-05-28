@@ -54,7 +54,14 @@ namespace FIAP_APP.Domain.Services
         {
             if (collegeClass.Data.Date < DateTime.Now.Date)
             {
-                throw new Exception($"Não é possível criar turma com datas anteriores a atual");
+                throw new Exception($"Não é possível criar ou editar turmas para datas anteriores a atual");
+            }
+
+            var college = await _classRepository.GetCollegeClass(collegeClass.Id);
+
+            if (college?.Turma == collegeClass.Turma)
+            {
+                return;
             }
 
             var result = await _classRepository.HasClassWithSameName(collegeClass.Turma.ToUpper());

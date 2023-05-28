@@ -6,11 +6,13 @@
 }
 
 <h1>@ViewData["Title"]</h1>
+<p>@TempData["Result"]</p>
 <div class="row">
     <div class="col-md-4">
         <form enctype="multipart/form-data" asp-action="Create">
 
-            <vc:summary></vc:summary>
+            <partial name="Error" />
+
             <div class="form-group">
                 <label asp-for="Turma" class="control-label"></label>
                 <input asp-for="Turma" class="form-control" />

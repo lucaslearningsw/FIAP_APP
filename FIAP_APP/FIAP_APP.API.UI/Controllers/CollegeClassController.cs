@@ -31,7 +31,7 @@ namespace FIAP_APP.API.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new ResponseObject { Status = "Error", ErrorMessage = ex.Message });
+                return BadRequest(ex.Message);
             }
         }
 
@@ -46,7 +46,7 @@ namespace FIAP_APP.API.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new ResponseObject { Status = "Error", ErrorMessage = ex.Message });
+                return BadRequest(ex.Message);
             }
         }
 
@@ -62,10 +62,10 @@ namespace FIAP_APP.API.Controllers
 
                 return collegeClass;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                return BadRequest();
+                return BadRequest(ex.Message);
             }
 
         }
@@ -84,7 +84,7 @@ namespace FIAP_APP.API.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new ResponseObject { Status = "Error", ErrorMessage = ex.Message });
+                return BadRequest(ex.Message);
 
             }
         }
@@ -101,7 +101,7 @@ namespace FIAP_APP.API.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new ResponseObject { Status = "Error", ErrorMessage = ex.Message });
+                return BadRequest(ex.Message);
             }
         }
     }

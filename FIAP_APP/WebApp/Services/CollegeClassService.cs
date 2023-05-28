@@ -24,9 +24,13 @@ namespace WebApp.Services
 
                 await url.PostJsonAsync(dto);
             }
-            catch (Exception)
+            catch (FlurlHttpException ex)
             {
-
+                var exceptionMessage = await ex.GetResponseStringAsync();  
+                throw new Exception(exceptionMessage);
+            }
+            catch(Exception)
+            {
                 throw;
             }
 
@@ -72,10 +76,17 @@ namespace WebApp.Services
 
                 await url.PostJsonAsync(dto);
             }
-            catch (Exception)
+            catch (FlurlHttpException ex)
+            {
+                var exceptionMessage = await ex.GetResponseStringAsync();
+                throw new Exception(exceptionMessage);
+            }
+
+            catch(Exception)
             {
                 throw;
             }
+
         }
 
 
@@ -86,6 +97,12 @@ namespace WebApp.Services
                 await $"{apiUrl}/api/CollegeClass/inativar-turma?id={id}".DeleteAsync();
 
             }
+            catch (FlurlHttpException ex)
+            {
+                var exceptionMessage = await ex.GetResponseStringAsync();
+                throw new Exception(exceptionMessage);
+            }
+
             catch (Exception)
             {
                 throw;

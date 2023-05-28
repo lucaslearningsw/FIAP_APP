@@ -7,7 +7,6 @@ namespace WebApp.Models.Dto
 {
     public class CollegeClassUpdateDto
     {
-        [JsonProperty]
         public int Id { get; set; }
 
         [StringLength(45, ErrorMessage = "O campo {0} precisa ter entre {2} e {1} caracters", MinimumLength = 2)]

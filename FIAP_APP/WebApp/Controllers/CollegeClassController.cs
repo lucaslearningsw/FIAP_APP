@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebApp.Models.Dto;
 using WebApp.Models.Dto.CollegeClass;
+using WebApp.Models.Dto.Student;
 using WebApp.Provider;
 using WebApp.Services.IServices;
 
@@ -29,10 +30,18 @@ namespace WebApp.Controllers
         {
             
             if (!ModelState.IsValid) return View(studentDto);
+            try
+            {
+                await _collegeClass.CreateCollegeClassAsync(studentDto);
+            }
+            catch (Exception ex)
+            {
 
-           
-            await _collegeClass.CreateCollegeClassAsync(studentDto);
+                TempData["Error"] = $"{ex.Message}";
+                return View("Create");
+            }
 
+            TempData["Sucesso"] = "Turma criada com sucesso";
             return RedirectToAction("Index");
         }
 
@@ -62,14 +71,25 @@ namespace WebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(CollegeClassUpdateDto collegeClass)
         {
-  
+
+            if (!ModelState.IsValid) return View(collegeClass);
+
             var collegeClassResult = await _collegeClass.GetCollegeClassAsync(collegeClass.Id);
 
             if (collegeClassResult == null) return NotFound();
 
-            await _collegeClass.UpdateCollegeClassAsync(collegeClass);
+            try
+            {
+                await _collegeClass.UpdateCollegeClassAsync(collegeClass);
+            }
+            catch (Exception ex)
+            {
 
+                TempData["Error"] = $"{ex.Message}";
+                return View(collegeClassResult);
+            }
 
+            TempData["Sucesso"] = "Editado com sucesso";
             return RedirectToAction("index");
         }
 
@@ -82,9 +102,18 @@ namespace WebApp.Controllers
 
             if (collegeClassResult == null) return NotFound();
 
-            await _collegeClass.DeleteCollegeClassAsync(collegeClass.Id);
+            try
+            {
+                await _collegeClass.DeleteCollegeClassAsync(collegeClass.Id);
+            }
+            catch (Exception ex)
+            {
 
+                TempData["Error"] = $"{ex.Message}";
+                return View("Delete");
+            }
 
+            TempData["Sucesso"] = "Turma Inativada com sucesso";
             return RedirectToAction("index");
         }
 
