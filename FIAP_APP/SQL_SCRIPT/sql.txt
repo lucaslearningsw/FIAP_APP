@@ -1,0 +1,15 @@
+CREATE TABLE aluno (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    nome VARCHAR(255),
+    usuario VARCHAR(45),
+    senha VARCHAR(255)
+);
+
+
+CREATE TABLE turma (
+  id INT IDENTITY(1,1) PRIMARY KEY,
+  curso_id INT,
+  turma VARCHAR(45),
+  ano INT,
+  INDEX fk_turma_1_idx (curso_id)
+);
