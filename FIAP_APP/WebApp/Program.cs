@@ -11,6 +11,7 @@ builder.Services.AddHttpClient<IStudentService, StudentService>();
 builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddHttpClient<ICollegeClassService, CollegeClassService>();
 builder.Services.AddScoped<ICollegeClassService, CollegeClassService>();
+builder.Services.AddScoped<IManagerRelationClassStudentService, ManagerRelationClassStudentService>();
 
 var app = builder.Build();
 

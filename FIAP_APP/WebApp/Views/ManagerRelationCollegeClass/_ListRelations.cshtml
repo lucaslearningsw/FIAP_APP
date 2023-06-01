@@ -1,0 +1,34 @@
+﻿@model IEnumerable<WebApp.Models.Dto.RelationsClassStudent.RelationsClassStudentDto>
+
+
+<table class="table table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                Turma
+            </th>
+
+            <th>
+                Aluno
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CollegeName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StudentName)
+                </td>
+                <td class="text-right">
+                    <a class="btn btn-danger" asp-controller="ManagerRelationCollegeClass"  asp-action="Inativate" asp-route-userId="@item.StudentId" , asp-route-collegeClassId="@item.CollegeClassID"><spam class="fa fa-pencil-alt">INATIVAR</a>
+                </td>
+                
+            </tr>
+        }
+    </tbody>
+</table>
+

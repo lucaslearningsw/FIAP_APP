@@ -11,7 +11,7 @@ namespace FIAP_APP.Domain.Repositories.ManagerRelationCollegeClass
     {
         List<RelationsClassStudent> GetRelationsClassStudent();
 
-        Task InativateRelation(int userId);
+        Task InativateRelation(int userId, int collegeClassId);
         Task RelateCollegeWithStudent(int userId, int collegeClassId);
 
         Task GetAllStudentsFromCollegeClass(int collegeClassId);

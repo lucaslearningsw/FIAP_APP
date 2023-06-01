@@ -22,7 +22,7 @@ namespace FIAP_APP.Domain.Services.ManagerRelationClassStudent
             return result;
         }
 
-        public Task InativateRelation(int userId)
+        public Task InativateRelation(int userId, int collegeClassId)
         {
             throw new NotImplementedException();
         }

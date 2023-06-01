@@ -1,0 +1,14 @@
+﻿@model IEnumerable<WebApp.Models.Dto.RelationsClassStudent.RelationsClassStudentDto>
+
+@{
+    ViewData["Title"] = "Lista Relações Alunos e Cursos";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<partial name="Error" />
+
+<p>
+    <a class="btn btn-info" asp-action="Create">Nova Relação</a>
+</p>
+<partial name="_ListRelations" />

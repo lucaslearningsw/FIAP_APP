@@ -40,11 +40,11 @@ namespace FIAP_APP.InfraData.SQL.Repositories.ManagerRelationCollegeStudent
             catch (Exception ex)
             {
 
-                throw new Exception($"Error ao selecionar lista de alunos {ex.Message}");
+                throw new Exception($"Error ao selecionar lista de de relações Aluno e Classes {ex.Message}");
             }
         }
 
-        public Task InativateRelation(int userId)
+        public Task InativateRelation(int userId, int collegeClassId)
         {
             throw new NotImplementedException();
         }
