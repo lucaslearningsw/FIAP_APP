@@ -13,3 +13,12 @@ CREATE TABLE turma (
   ano INT,
   INDEX fk_turma_1_idx (curso_id)
 );
+
+
+  CREATE TABLE aluno_turma (
+    aluno_id INT,
+    turma_id INT,
+    FOREIGN KEY (aluno_id) REFERENCES aluno(id),
+    FOREIGN KEY (turma_id) REFERENCES turma(id),
+    INDEX fk_aluno_turma_1_idx (aluno_id)
+);
