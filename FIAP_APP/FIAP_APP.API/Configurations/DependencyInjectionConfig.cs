@@ -1,8 +1,11 @@
 ﻿
 using FIAP_APP.Domain.Repositories.CollegeClass;
+using FIAP_APP.Domain.Repositories.ManagerRelationCollegeClass;
 using FIAP_APP.Domain.Repositories.Student;
 using FIAP_APP.Domain.Services;
+using FIAP_APP.Domain.Services.ManagerRelationClassStudent;
 using FIAP_APP.InfraData.SQL.Repositories.CollegeClass;
+using FIAP_APP.InfraData.SQL.Repositories.ManagerRelationCollegeStudent;
 using FIAP_APP.InfraData.SQL.Repositories.Student;
 using Microsoft.AspNetCore.Mvc.DataAnnotations;
 
@@ -18,6 +21,8 @@ namespace FIAP_APP.API.Configurations
             services.AddScoped<CollegeClassService>();
             services.AddScoped<StudentService>();
             services.AddScoped<CollegeClassService>();
+            services.AddScoped<ManagerRelationClassStudentService>();
+            services.AddScoped<IManagerRelationCollegeClassRepository, ManagerRelationClassStudentRepository>();
 
             return services;
         }
