@@ -1,0 +1,41 @@
+﻿@model WebApp.Models.Dto.RelationsClassStudent.RelationsClassStudentDto
+@{
+    ViewData["Title"] = "Inativar relação";
+}
+
+<div class="modal-header">
+
+    <h4 class="modal-title">@ViewData["Title"]</h4>
+    <button type="button" class="close" data-dismiss="modal">
+        <span aria-hidden="true">x</span><span class="sr-only">Fechar</span>
+    </button>
+
+</div>
+
+<form asp-action="Delete">
+
+    <div class="modal-body">
+
+        <input type="hidden" asp-for="CollegeClassID" />
+        <input type="hidden" asp-for="StudentId" />
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => Model.CollegeName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.StudentName)
+            </td>
+        </tr>
+
+
+
+        <div class="modal-footer">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Deletar" class="btn btn-danger" />
+                <input type="button" class="btn btn-info" value="Fechar" data-dismiss="modal" />
+
+            </div>
+        </div>
+    </div>
+</form>

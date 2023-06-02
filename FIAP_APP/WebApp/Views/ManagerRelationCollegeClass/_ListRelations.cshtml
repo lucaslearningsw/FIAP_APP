@@ -24,11 +24,12 @@
                     @Html.DisplayFor(modelItem => item.StudentName)
                 </td>
                 <td class="text-right">
-                    <a class="btn btn-danger" asp-controller="ManagerRelationCollegeClass"  asp-action="Inativate" asp-route-userId="@item.StudentId" , asp-route-collegeClassId="@item.CollegeClassID"><spam class="fa fa-pencil-alt">INATIVAR</a>
+                    <a class="btn btn-danger" asp-controller="ManagerRelationCollegeClass"
+                   asp-action="Inativate" asp-route-studentId="@item.StudentId", 
+                   asp-route-collegeClassId="@item.CollegeClassID" data-modal=""><spam class="fa fa-pencil-alt">INATIVAR</a>
                 </td>
                 
             </tr>
         }
     </tbody>
 </table>
-
